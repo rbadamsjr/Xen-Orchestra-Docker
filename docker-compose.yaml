@@ -1,0 +1,16 @@
+version: '2'
+services:
+  xoa:
+    build: .
+    ports:
+      - "8888:80"
+    links:
+      - redis
+    depends_on:
+      - redis
+  redis:
+    image: "redis:3.0"
+    volumes:
+      - /:/data
+    ports:
+      - 6379
