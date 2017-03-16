@@ -11,16 +11,18 @@ RUN git clone -b stable http://github.com/vatesfr/xo-server && \
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
-RUN cd xo-server/ && npm install && npm run build && cd .. && \
-    cd xo-web/ && npm install && npm run build && cd ..
+RUN npm install --global yarn
+
+ #RUN cd xo-server/ && npm install && npm run build && cd .. && \
+#    cd xo-web/ && npm install && npm run build && cd ..
+
+RUN cd xo-server/ && yarn && yarn run build && cd .. && \
+    cd xo-web/ && yarn && yarn run build && cd ..
 
 COPY xo-server.yaml /usr/src/xo/xo-server/.xo-server.yaml
-
-RUN cd xo-web/ && npm install && npm run build && cd .. && \
-    cd xo-web/ && npm install && npm run build && cd ..
 
 WORKDIR /usr/src/xo/xo-server
 
 EXPOSE 80
 
-CMD ["npm","start"]
+CMD ["yarn","start"]
